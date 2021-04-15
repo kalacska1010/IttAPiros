@@ -1,5 +1,8 @@
 package ittapiros;
 
+import java.util.Random;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,10 +14,10 @@ package ittapiros;
  * @author kalac
  */
 public class NewJFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form NewJFrame
-     */
+    private int szam ;
+    private int tipp;
+   
+    
     public NewJFrame() {
         initComponents();
     }
@@ -46,18 +49,41 @@ public class NewJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         j1pohar.setText("1 pohár");
+        j1pohar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                j1poharActionPerformed(evt);
+            }
+        });
 
         j2pohar.setText("2 pohár");
+        j2pohar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                j2poharActionPerformed(evt);
+            }
+        });
 
         j3pohar.setText("3 pohár");
+        j3pohar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                j3poharActionPerformed(evt);
+            }
+        });
 
-        jujhely.setText("új helyre rakás");
-
-        jmegoldas.setText("Megoldás:");
+        jujhely.setText("maradjon a megoldás");
+        jujhely.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jujhelyActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Fájl");
 
         jujjatek.setText("új játék");
+        jujjatek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jujjatekActionPerformed(evt);
+            }
+        });
         jMenu1.add(jujjatek);
 
         jmentes.setText("mentés");
@@ -94,17 +120,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(j1pohar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(j2pohar)
-                        .addGap(32, 32, 32)
+                        .addGap(27, 27, 27)
                         .addComponent(j3pohar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jmegoldas)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jvalasz, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jujhely))
-                            .addComponent(jmegoldas))
+                                .addGap(18, 18, 18)
+                                .addComponent(jujhely)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -118,10 +144,10 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(j3pohar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jmegoldas)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jujhely)
-                    .addComponent(jvalasz, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jvalasz, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jujhely))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -129,8 +155,48 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void j4poharasjatekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j4poharasjatekActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Nem érhető el ez a mód!");
     }//GEN-LAST:event_j4poharasjatekActionPerformed
+
+    private void jujjatekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jujjatekActionPerformed
+        
+         if (!jujhely.isSelected()) {
+             Random rnd = new Random();
+         szam =rnd.nextInt((3-1)+1)+1;
+        }
+         jvalasz.setText("");
+    }//GEN-LAST:event_jujjatekActionPerformed
+
+    private void jujhelyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jujhelyActionPerformed
+        
+    }//GEN-LAST:event_jujhelyActionPerformed
+
+    private void j1poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j1poharActionPerformed
+        tipp = 1;
+        if (tipp == szam ) {
+            jvalasz.setText("talált");
+        }else{
+         jvalasz.setText("nem talált");
+        }
+    }//GEN-LAST:event_j1poharActionPerformed
+
+    private void j2poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j2poharActionPerformed
+        tipp = 2;
+         if (tipp == szam ) {
+            jvalasz.setText("talált");
+        }else{
+         jvalasz.setText("nem talált");
+        }
+    }//GEN-LAST:event_j2poharActionPerformed
+
+    private void j3poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j3poharActionPerformed
+        tipp = 3;
+         if (tipp == szam ) {
+            jvalasz.setText("talált");
+        }else{
+         jvalasz.setText("nem talált");
+        }
+    }//GEN-LAST:event_j3poharActionPerformed
 
     /**
      * @param args the command line arguments
