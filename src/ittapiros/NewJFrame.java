@@ -1,5 +1,7 @@
 package ittapiros;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -8,18 +10,21 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author kalac
  */
 public class NewJFrame extends javax.swing.JFrame {
-    private int szam ;
+
+    private int szam;
     private int tipp;
-   
-    
+    private int db;
+    private boolean talalt;
+
     public NewJFrame() {
         initComponents();
+        talalt = false;
+        jvalasz.setText("Kezdjen új játékot!");
     }
 
     /**
@@ -87,6 +92,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jMenu1.add(jujjatek);
 
         jmentes.setText("mentés");
+        jmentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmentesActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmentes);
 
         jbetoltes.setText("betöltés");
@@ -118,11 +128,11 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(j1pohar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(j2pohar)
-                        .addGap(27, 27, 27)
+                        .addGap(36, 36, 36)
                         .addComponent(j3pohar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,18 +147,17 @@ public class NewJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(j1pohar)
                     .addComponent(j2pohar)
+                    .addComponent(j1pohar)
                     .addComponent(j3pohar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(23, 23, 23)
                 .addComponent(jmegoldas)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jvalasz, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jujhely))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jujhely)))
         );
 
         pack();
@@ -159,44 +168,61 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_j4poharasjatekActionPerformed
 
     private void jujjatekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jujjatekActionPerformed
-        
-         if (!jujhely.isSelected()) {
-             Random rnd = new Random();
-         szam =rnd.nextInt((3-1)+1)+1;
+        db++;
+        if (!jujhely.isSelected()) {
+            Random rnd = new Random();
+            szam = rnd.nextInt((3 - 1) + 1) + 1;
         }
-         jvalasz.setText("");
+        jvalasz.setText("");
     }//GEN-LAST:event_jujjatekActionPerformed
 
     private void jujhelyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jujhelyActionPerformed
-        
+
     }//GEN-LAST:event_jujhelyActionPerformed
 
     private void j1poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j1poharActionPerformed
         tipp = 1;
-        if (tipp == szam ) {
+        if (tipp == szam) {
             jvalasz.setText("talált");
-        }else{
-         jvalasz.setText("nem talált");
+            talalt = true;
+        } else {
+            jvalasz.setText("nem talált");
         }
     }//GEN-LAST:event_j1poharActionPerformed
 
     private void j2poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j2poharActionPerformed
         tipp = 2;
-         if (tipp == szam ) {
+        if (tipp == szam) {
             jvalasz.setText("talált");
-        }else{
-         jvalasz.setText("nem talált");
+            talalt = true;
+        } else {
+            jvalasz.setText("nem talált");
         }
     }//GEN-LAST:event_j2poharActionPerformed
 
     private void j3poharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j3poharActionPerformed
         tipp = 3;
-         if (tipp == szam ) {
+        if (tipp == szam) {
             jvalasz.setText("talált");
-        }else{
-         jvalasz.setText("nem talált");
+            talalt = true;
+        } else {
+            jvalasz.setText("nem talált");
         }
     }//GEN-LAST:event_j3poharActionPerformed
+
+    private void jmentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmentesActionPerformed
+         try {
+            FileWriter myWriter = new FileWriter("config.txt");
+             if (db > 1 && jujhely.isSelected()) {
+                  myWriter.write(szam+";"+talalt+";"+true);
+             }else{
+                  myWriter.write(szam+";"+talalt+";"+false);
+             }
+            myWriter.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+    }//GEN-LAST:event_jmentesActionPerformed
 
     /**
      * @param args the command line arguments
