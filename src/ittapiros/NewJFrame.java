@@ -2,6 +2,9 @@ package ittapiros;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -25,6 +28,10 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         talalt = false;
         jvalasz.setText("Kezdjen új játékot!");
+        Path path = Paths.get("tipp.deb");
+        if (Files.exists(path)) {
+            setTitle(szam+"");
+        }
     }
 
     /**
@@ -100,6 +107,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jMenu1.add(jmentes);
 
         jbetoltes.setText("betöltés");
+        jbetoltes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbetoltesActionPerformed(evt);
+            }
+        });
         jMenu1.add(jbetoltes);
 
         jMenuBar1.add(jMenu1);
@@ -223,6 +235,13 @@ public class NewJFrame extends javax.swing.JFrame {
             e.printStackTrace();
           }
     }//GEN-LAST:event_jmentesActionPerformed
+
+    private void jbetoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbetoltesActionPerformed
+       Path path = Paths.get("tipp.deb");
+        if (Files.exists(path)) {
+            setTitle(szam+"");
+        }
+    }//GEN-LAST:event_jbetoltesActionPerformed
 
     /**
      * @param args the command line arguments
